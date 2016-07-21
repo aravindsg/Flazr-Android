@@ -126,8 +126,36 @@ public abstract class Metadata extends AbstractMessage {
         return new MetadataAmf0("onPlayStatus", map);
     }
 
+    // SAMPLE FLV METADATA HEADER.
     public static Metadata rtmpSampleAccess() {
-        return new MetadataAmf0("|RtmpSampleAccess", false, false);
+        Amf0Object track1 = object(
+            pair("length", 3369366.0),
+            pair("timescale", 30000.0),
+            pair("language", "eng"),
+            pair("sampledescription", new Amf0Object[]{object(pair("sampletype", "avc1"))})
+        );
+        Amf0Object track2 = object(
+            pair("length", 2697216.0),
+            pair("timescale", 24000.0),
+            pair("language", "eng"),
+            pair("sampledescription", new Amf0Object[]{object(pair("sampletype", "mp4a"))})
+        );
+        Map<String, Object> map = map(
+            pair("duration", movie.getDuration()),
+            pair("moovPosition", movie.getMoovPosition()),
+            pair("width", 640.0),
+            pair("height", 352.0),
+            pair("videocodecid", "avc1"),
+            pair("audiocodecid", "mp4a"),
+            pair("avcprofile", 100.0),
+            pair("avclevel", 30.0),
+            pair("aacaot", 2.0),
+            pair("videoframerate", 29.97002997002997),
+            pair("audiosamplerate", 24000.0),
+            pair("audiochannels", 2.0),
+            pair("trackinfo", new Amf0Object[]{track1, track2})
+        );
+        return new MetadataAmf0("onMetaData", map);
     }
 
     public static Metadata dataStart() {
