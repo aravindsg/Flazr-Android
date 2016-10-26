@@ -41,7 +41,7 @@ import java.util.concurrent.TimeUnit;
 
 public class RtmpServer {
 
-    private static final Logger logger = LoggerFactory.getLogger(RtmpServer.class);
+    private static final Logger logger = LoggerFactory.getLogger(RtmpServer.class.getSimpleName());
 
     static {
         RtmpConfig.configureServer();

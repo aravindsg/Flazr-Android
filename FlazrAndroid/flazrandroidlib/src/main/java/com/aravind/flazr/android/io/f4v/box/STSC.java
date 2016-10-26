@@ -31,7 +31,7 @@ import java.util.List;
 
 public class STSC implements Payload {
 
-    private static final Logger logger = LoggerFactory.getLogger(STSC.class);
+    private static final Logger logger = LoggerFactory.getLogger(STSC.class.getSimpleName());
 
     public static class STSCRecord {
 

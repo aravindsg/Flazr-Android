@@ -39,7 +39,7 @@ import java.util.concurrent.TimeUnit;
 
 public abstract class RtmpPublisher {
 
-    private static final Logger logger = LoggerFactory.getLogger(RtmpPublisher.class);
+    private static final Logger logger = LoggerFactory.getLogger(RtmpPublisher.class.getSimpleName());
 
     private final Timer timer;
     private final int timerTickSize;
@@ -138,7 +138,7 @@ public abstract class RtmpPublisher {
         }
         timePosition = seekTime;
         logger.debug("publish start, seek requested: {} actual seek: {}, play length: {}, conversation: {}",
-                new Object[]{seekTimeRequested, seekTime, playLength, currentConversationId});
+                seekTimeRequested, seekTime, playLength, currentConversationId);
         for(final RtmpMessage message : messages) {
             writeToStream(channel, message);
         }
@@ -186,7 +186,7 @@ public abstract class RtmpPublisher {
         final long delay = (long) ((header.getTime() - timePosition) * compensationFactor);
         if(logger.isDebugEnabled()) {
             logger.debug("elapsed: {}, streamed: {}, buffer: {}, factor: {}, delay: {}",
-                    new Object[]{elapsedTimePlusSeek, timePosition, clientBuffer, compensationFactor, delay});
+                    elapsedTimePlusSeek, timePosition, clientBuffer, compensationFactor, delay);
         }
         timePosition = header.getTime();
         header.setStreamId(streamId);
@@ -232,7 +232,7 @@ public abstract class RtmpPublisher {
         currentConversationId++;
         final long elapsedTime = System.currentTimeMillis() - startTime;
         logger.info("finished, start: {}, elapsed {}, streamed: {}",
-                new Object[]{seekTime / 1000, elapsedTime / 1000, (timePosition - seekTime) / 1000});
+                seekTime / 1000, elapsedTime / 1000, (timePosition - seekTime) / 1000);
         for(RtmpMessage message : getStopMessages(timePosition)) {
             writeToStream(channel, message);
         }

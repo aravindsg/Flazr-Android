@@ -33,7 +33,7 @@ import java.nio.channels.FileChannel;
 
 public class FlvWriter implements RtmpWriter {
 
-    private static final Logger logger = LoggerFactory.getLogger(FlvWriter.class);
+    private static final Logger logger = LoggerFactory.getLogger(FlvWriter.class.getSimpleName());
 
     private final FileChannel out;
     private final int[] channelTimes = new int[RtmpHeader.MAX_CHANNEL_ID];
@@ -79,9 +79,9 @@ public class FlvWriter implements RtmpWriter {
             return;
         }
         logger.info("finished in {} seconds, media duration: {} seconds (seek time: {})",
-                new Object[]{(System.currentTimeMillis() - startTime) / 1000,
-                (channelTimes[primaryChannel] - seekTime) / 1000, 
-                seekTime / 1000});
+                (System.currentTimeMillis() - startTime) / 1000,
+                (channelTimes[primaryChannel] - seekTime) / 1000,
+                seekTime / 1000);
     }
 
     private void logWriteProgress() {

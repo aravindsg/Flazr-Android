@@ -31,7 +31,7 @@ import java.util.List;
 
 public class CTTS implements Payload {
 
-    private static final Logger logger = LoggerFactory.getLogger(CTTS.class);
+    private static final Logger logger = LoggerFactory.getLogger(CTTS.class.getSimpleName());
 
     public static class CTTSRecord {
 

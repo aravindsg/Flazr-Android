@@ -28,7 +28,7 @@ import java.util.Arrays;
  */
 public class ValueToEnum<T extends Enum<T> & ValueToEnum.IntValue> {
 
-    public static interface IntValue {
+    public interface IntValue {
         int intValue();
     }
 

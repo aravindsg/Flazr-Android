@@ -31,7 +31,7 @@ import java.util.List;
 
 public class Box {
     
-    private static final Logger logger = LoggerFactory.getLogger(Box.class);
+    private static final Logger logger = LoggerFactory.getLogger(Box.class.getSimpleName());
 
     private final BoxType type;
     private final long fileOffset;
@@ -96,7 +96,7 @@ public class Box {
             final char[] chars = new char[level * 2];
             Arrays.fill(chars, ' ');
             logger.debug("{} recursing {}, payload: {}",
-                    new Object[]{String.valueOf(chars), box.type, box.payload});
+                    String.valueOf(chars), box.type, box.payload);
         }        
         if(collect != null && box.getPayload() != null) {
             collect.add(box);

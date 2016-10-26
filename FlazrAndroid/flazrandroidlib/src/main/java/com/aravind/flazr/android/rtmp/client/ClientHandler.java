@@ -53,7 +53,7 @@ import java.util.Map;
 @ChannelPipelineCoverage("one")
 public class ClientHandler extends SimpleChannelUpstreamHandler {
 
-    private static final Logger logger = LoggerFactory.getLogger(ClientHandler.class);
+    private static final Logger logger = LoggerFactory.getLogger(ClientHandler.class.getSimpleName());
 
     private int transactionId = 1;
     private Map<Integer, String> transactionToCommandMap;

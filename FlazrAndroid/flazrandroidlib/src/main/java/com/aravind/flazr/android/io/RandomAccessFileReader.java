@@ -29,7 +29,7 @@ import java.io.RandomAccessFile;
 
 public class RandomAccessFileReader implements BufferReader {
 
-    private static final Logger logger = LoggerFactory.getLogger(RandomAccessFileReader.class);
+    private static final Logger logger = LoggerFactory.getLogger(RandomAccessFileReader.class.getSimpleName());
 
     private final String absolutePath;
     private final RandomAccessFile in;

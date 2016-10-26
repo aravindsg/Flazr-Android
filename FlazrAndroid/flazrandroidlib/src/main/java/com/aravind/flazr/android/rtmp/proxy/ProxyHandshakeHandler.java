@@ -33,7 +33,7 @@ import org.slf4j.LoggerFactory;
 @ChannelPipelineCoverage("one")
 public class ProxyHandshakeHandler extends SimpleChannelUpstreamHandler {
 
-    private static final Logger logger = LoggerFactory.getLogger(ProxyHandshakeHandler.class);
+    private static final Logger logger = LoggerFactory.getLogger(ProxyHandshakeHandler.class.getSimpleName());
     
     private int bytesWritten;
     private boolean handshakeDone;

@@ -33,17 +33,17 @@ import org.slf4j.LoggerFactory;
 
 public class RtmpDecoder extends ReplayingDecoder<DecoderState> {
 
-    private static final Logger logger = LoggerFactory.getLogger(RtmpDecoder.class);
+    private static final Logger logger = LoggerFactory.getLogger(RtmpDecoder.class.getSimpleName());
 
-    public static enum DecoderState {        
+    public enum DecoderState {
         GET_HEADER,
         GET_PAYLOAD
     }
 
     public RtmpDecoder() {
-        super(DecoderState.GET_HEADER);                
+        super(DecoderState.GET_HEADER);
     }
-    
+
     private RtmpHeader header;
     private int channelId;
     private ChannelBuffer payload;
@@ -55,45 +55,45 @@ public class RtmpDecoder extends ReplayingDecoder<DecoderState> {
 
     @Override
     protected Object decode(final ChannelHandlerContext ctx, final Channel channel, final ChannelBuffer in, final DecoderState state) {
-        switch(state) {            
+        switch (state) {
             case GET_HEADER:
                 header = new RtmpHeader(in, incompleteHeaders);
                 channelId = header.getChannelId();
-                if(incompletePayloads[channelId] == null) { // new chunk stream
+                if (incompletePayloads[channelId] == null) { // new chunk stream
                     incompleteHeaders[channelId] = header;
                     incompletePayloads[channelId] = ChannelBuffers.buffer(header.getSize());
                 }
                 payload = incompletePayloads[channelId];
                 checkpoint(DecoderState.GET_PAYLOAD);
-            case GET_PAYLOAD:              
+            case GET_PAYLOAD:
                 final byte[] bytes = new byte[Math.min(payload.writableBytes(), chunkSize)];
                 in.readBytes(bytes);
-                payload.writeBytes(bytes);                
+                payload.writeBytes(bytes);
                 checkpoint(DecoderState.GET_HEADER);
-                if(payload.writable()) { // more chunks remain
+                if (payload.writable()) { // more chunks remain
                     return null;
                 }
                 incompletePayloads[channelId] = null;
-                final RtmpHeader prevHeader = completedHeaders[channelId];                
-                if (!header.isLarge()) {
+                final RtmpHeader prevHeader = completedHeaders[channelId];
+                if (!header.isLarge() && prevHeader != null) {
                     header.setTime(prevHeader.getTime() + header.getDeltaTime());
                 }
                 final RtmpMessage message = MessageType.decode(header, payload);
-                if(logger.isDebugEnabled()) {
-                    logger.debug("<< {}", message);
+                if (logger.isDebugEnabled()) {
+//                    logger.debug("<< {}", message);
                 }
                 payload = null;
-                if(header.isChunkSize()) {
+                if (header.isChunkSize()) {
                     final ChunkSize csMessage = (ChunkSize) message;
-                    logger.debug("decoder new chunk size: {}", csMessage);
+//                    logger.debug("decoder new chunk size: {}", csMessage);
                     chunkSize = csMessage.getChunkSize();
                 }
                 completedHeaders[channelId] = header;
                 return message;
-            default:               
+            default:
                 throw new RuntimeException("unexpected decoder state: " + state);
         }
-        
+
     }
 
 }

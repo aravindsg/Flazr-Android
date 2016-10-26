@@ -31,7 +31,7 @@ import java.util.List;
 
 public class STCO implements Payload {
 
-    private static final Logger logger = LoggerFactory.getLogger(STCO.class);
+    private static final Logger logger = LoggerFactory.getLogger(STCO.class.getSimpleName());
 
     private final boolean co64;
     private List<Long> offsets;

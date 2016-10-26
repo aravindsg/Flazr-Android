@@ -28,11 +28,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class ServerStream {
 
-    public static enum PublishType {
+    public enum PublishType {
 
         LIVE,
         APPEND,
@@ -47,25 +48,25 @@ public class ServerStream {
         }
 
     }
-    
+
     private final String name;
-    private final PublishType publishType;
+    private final PublishType publishType = PublishType.LIVE;
     private final ChannelGroup subscribers;
     private final List<RtmpMessage> configMessages;
     private Channel publisher;
 
-    private static final Logger logger = LoggerFactory.getLogger(ServerStream.class);
+    private static final Logger logger = LoggerFactory.getLogger(ServerStream.class.getSimpleName());
 
-    public ServerStream(final String rawName, final String typeString) {        
+    public ServerStream(final String rawName, final String typeString) {
         this.name = Utils.trimSlashes(rawName).toLowerCase();
-        if(typeString != null) {
-            this.publishType = PublishType.parse(typeString); // TODO record, append
+        if (typeString != null) {
+//            this.publishType = PublishType.LIVE; // TODO record, append
             subscribers = new DefaultChannelGroup(name);
-            configMessages = new ArrayList<RtmpMessage>();
+            configMessages = Collections.synchronizedList(new ArrayList<RtmpMessage>());
         } else {
-            this.publishType = null;
-            subscribers = null;
-            configMessages = null;
+//            this.publishType = PublishType.LIVE;
+            subscribers = new DefaultChannelGroup(name);
+            configMessages = Collections.synchronizedList(new ArrayList<RtmpMessage>());
         }
         logger.info("Created ServerStream {}", this);
     }
@@ -92,12 +93,14 @@ public class ServerStream {
     }
 
     public void addConfigMessage(final RtmpMessage message) {
-        configMessages.add(message);
+        if (configMessages != null) {
+            configMessages.add(message);
+        }
     }
 
     public void setPublisher(Channel publisher) {
         this.publisher = publisher;
-        configMessages.clear();
+        if (configMessages != null) configMessages.clear();
     }
 
     public Channel getPublisher() {
@@ -106,7 +109,7 @@ public class ServerStream {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder();        
+        final StringBuilder sb = new StringBuilder();
         sb.append("[name: '").append(name);
         sb.append("' type: ").append(publishType);
         sb.append(" publisher: ").append(publisher);

@@ -29,7 +29,7 @@ import java.util.List;
 
 public class LoopedReader implements RtmpReader {
 
-    private static final Logger logger = LoggerFactory.getLogger(LoopedReader.class);
+    private static final Logger logger = LoggerFactory.getLogger(LoopedReader.class.getSimpleName());
 
     private final int loopCount;
     private final RtmpReader reader;

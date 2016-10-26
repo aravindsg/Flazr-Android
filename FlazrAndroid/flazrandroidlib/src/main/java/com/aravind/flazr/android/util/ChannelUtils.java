@@ -28,7 +28,7 @@ import java.nio.channels.ClosedChannelException;
 
 public class ChannelUtils {
 
-    private static final Logger logger = LoggerFactory.getLogger(ChannelUtils.class);
+    private static final Logger logger = LoggerFactory.getLogger(ChannelUtils.class.getSimpleName());
 
     public static void exceptionCaught(final ExceptionEvent e) {
         if (e.getCause() instanceof ClosedChannelException) {

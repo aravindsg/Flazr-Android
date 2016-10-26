@@ -29,15 +29,15 @@ import org.slf4j.LoggerFactory;
 
 public class RtmpHeader {
     
-    private static final Logger logger = LoggerFactory.getLogger(RtmpHeader.class);
+    private static final Logger logger = LoggerFactory.getLogger(RtmpHeader.class.getSimpleName());
 
-    public static enum Type implements ValueToEnum.IntValue {
+    public enum Type implements ValueToEnum.IntValue {
 
         LARGE(0), MEDIUM(1), SMALL(2), TINY(3);
 
         private final int value;
 
-        private Type(int value) {
+        Type(int value) {
             this.value = value;            
         }
 
@@ -87,6 +87,7 @@ public class RtmpHeader {
         headerType = Type.valueToEnum(headerTypeInt);
         //========================= REMAINING HEADER ===========================
         final RtmpHeader prevHeader = incompleteHeaders[channelId];
+
         // logger.debug("so far: {}, prev {}", this, prevHeader);
         switch(headerType) {
             case LARGE:
@@ -102,27 +103,33 @@ public class RtmpHeader {
                 deltaTime = in.readMedium();
                 size = in.readMedium();
                 messageType = MessageType.valueToEnum(in.readByte());
-                streamId = prevHeader.streamId;
+                if(prevHeader != null){
+                    streamId = prevHeader.streamId;
+                }
                 if(deltaTime == MAX_NORMAL_HEADER_TIME) {
                     deltaTime = in.readInt();
                 }
                 break;
             case SMALL:
                 deltaTime = in.readMedium();
-                size = prevHeader.size;
-                messageType = prevHeader.messageType;
-                streamId = prevHeader.streamId;
+                if(prevHeader != null) {
+                    size = prevHeader.size;
+                    messageType = prevHeader.messageType;
+                    streamId = prevHeader.streamId;
+                }
                 if(deltaTime == MAX_NORMAL_HEADER_TIME) {
                     deltaTime = in.readInt();
                 }
                 break;
             case TINY:
-                headerType = prevHeader.headerType; // preserve original
-                time = prevHeader.time;
-                deltaTime = prevHeader.deltaTime;
-                size = prevHeader.size;
-                messageType = prevHeader.messageType;
-                streamId = prevHeader.streamId;
+                if(prevHeader != null) {
+                    headerType = prevHeader.headerType; // preserve original
+                    time = prevHeader.time;
+                    deltaTime = prevHeader.deltaTime;
+                    size = prevHeader.size;
+                    messageType = prevHeader.messageType;
+                    streamId = prevHeader.streamId;
+                }
                 break;
         }        
     }

@@ -31,7 +31,7 @@ import java.nio.channels.FileChannel;
 
 public class FileChannelReader implements BufferReader {
 
-    private static final Logger logger = LoggerFactory.getLogger(FileChannelReader.class);
+    private static final Logger logger = LoggerFactory.getLogger(FileChannelReader.class.getSimpleName());
 
     private final String absolutePath;
     private final FileChannel in;

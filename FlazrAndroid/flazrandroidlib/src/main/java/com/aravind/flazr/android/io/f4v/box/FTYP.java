@@ -31,7 +31,7 @@ import java.util.List;
 
 public class FTYP implements Payload {
 
-    private static final Logger logger = LoggerFactory.getLogger(FTYP.class);
+    private static final Logger logger = LoggerFactory.getLogger(FTYP.class.getSimpleName());
     
     private byte[] majorBrand;
     private int minorVersion;

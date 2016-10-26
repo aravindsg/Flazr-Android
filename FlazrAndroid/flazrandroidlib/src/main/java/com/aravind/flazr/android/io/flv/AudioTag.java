@@ -57,7 +57,7 @@ public class AudioTag {
         return stereo;
     }
 
-    public static enum CodecType implements ValueToEnum.IntValue {
+    public enum CodecType implements ValueToEnum.IntValue {
 
         ADPCM(1),
         MP3(2),
@@ -92,7 +92,7 @@ public class AudioTag {
 
     }
 
-    public static enum SampleRate implements ValueToEnum.IntValue {
+    public enum SampleRate implements ValueToEnum.IntValue {
 
         KHZ_5(0),
         KHZ_11(1),

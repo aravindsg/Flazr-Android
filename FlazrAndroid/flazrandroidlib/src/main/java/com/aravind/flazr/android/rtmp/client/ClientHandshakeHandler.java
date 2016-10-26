@@ -36,7 +36,7 @@ import org.slf4j.LoggerFactory;
 
 public class ClientHandshakeHandler extends FrameDecoder implements ChannelDownstreamHandler {
 
-    private static final Logger logger = LoggerFactory.getLogger(ClientHandshakeHandler.class);
+    private static final Logger logger = LoggerFactory.getLogger(ClientHandshakeHandler.class.getSimpleName());
 
     private boolean rtmpe;
     private final RtmpHandshake handshake;

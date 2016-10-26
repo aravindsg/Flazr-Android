@@ -29,7 +29,7 @@ import org.slf4j.LoggerFactory;
 
 public class MVHD implements Payload {
 
-    private static final Logger logger = LoggerFactory.getLogger(MVHD.class);
+    private static final Logger logger = LoggerFactory.getLogger(MVHD.class.getSimpleName());
     
     private byte version;
     private byte[] flags;
@@ -83,7 +83,7 @@ public class MVHD implements Payload {
         playbackRate = in.readInt();
         volume = in.readShort();
         logger.debug("creationTime {} modificationTime {} timeScale {} duration {} playbackRate {} volume {}",
-                new Object[]{creationTime, modificationTime, timeScale, duration, playbackRate, volume});
+                creationTime, modificationTime, timeScale, duration, playbackRate, volume);
         reserved1 = in.readShort();
         reserved2 = new int[2];
         reserved2[0] = in.readInt();

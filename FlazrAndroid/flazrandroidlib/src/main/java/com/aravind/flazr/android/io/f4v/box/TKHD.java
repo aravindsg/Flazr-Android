@@ -29,7 +29,7 @@ import org.slf4j.LoggerFactory;
 
 public class TKHD implements Payload {
 
-    private static final Logger logger = LoggerFactory.getLogger(TKHD.class);
+    private static final Logger logger = LoggerFactory.getLogger(TKHD.class.getSimpleName());
     private byte version;
     private byte[] flags;
     private long creationTime;
@@ -82,7 +82,7 @@ public class TKHD implements Payload {
         volume = in.readShort();
         reserved3 = in.readShort();
         logger.debug("creationTime {} modificationTime {} trackId {} duration {} layer {} volume {}",
-                new Object[]{creationTime, modificationTime, trackId, duration, layer, volume});
+                creationTime, modificationTime, trackId, duration, layer, volume);
 
         transformMatrix = new int[9];
         for (int i = 0; i < transformMatrix.length; i++) {

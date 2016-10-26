@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">FlazrAndroidLib</string>
+    <string name="burst_rate">Burst Rate</string>
 </resources>

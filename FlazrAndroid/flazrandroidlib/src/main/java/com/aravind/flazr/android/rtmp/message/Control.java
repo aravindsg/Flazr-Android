@@ -30,9 +30,9 @@ import org.slf4j.LoggerFactory;
 
 public class Control extends AbstractMessage {
 
-    private static final Logger logger = LoggerFactory.getLogger(Control.class);
+    private static final Logger logger = LoggerFactory.getLogger(Control.class.getSimpleName());
 
-    public static enum Type implements ValueToEnum.IntValue {
+    public enum Type implements ValueToEnum.IntValue {
         
         STREAM_BEGIN(0),
         STREAM_EOF(1),
@@ -48,7 +48,7 @@ public class Control extends AbstractMessage {
 
         private final int value;
 
-        private Type(int value) {
+        Type(int value) {
             this.value = value;
         }
 

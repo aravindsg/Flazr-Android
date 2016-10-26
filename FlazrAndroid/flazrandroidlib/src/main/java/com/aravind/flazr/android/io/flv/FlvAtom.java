@@ -31,7 +31,7 @@ import org.slf4j.LoggerFactory;
 
 public class FlvAtom implements RtmpMessage {
 
-    private static final Logger logger = LoggerFactory.getLogger(FlvAtom.class);
+    private static final Logger logger = LoggerFactory.getLogger(FlvAtom.class.getSimpleName());
 
     private final RtmpHeader header;
     private ChannelBuffer data;    

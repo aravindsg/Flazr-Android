@@ -31,9 +31,9 @@ import java.util.Properties;
 
 public class RtmpConfig {
     
-    private static final Logger logger = LoggerFactory.getLogger(RtmpConfig.class);
+    private static final Logger logger = LoggerFactory.getLogger(RtmpConfig.class.getSimpleName());
 
-    public static enum Type { SERVER, SERVER_STOP, PROXY, PROXY_STOP }
+    public enum Type { SERVER, SERVER_STOP, PROXY, PROXY_STOP }
 
     public static String SERVER_HOME_DIR = "home";
     public static int TIMER_TICK_SIZE = 100;

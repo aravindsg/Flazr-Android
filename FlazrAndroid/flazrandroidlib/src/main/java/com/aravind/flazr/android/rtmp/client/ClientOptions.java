@@ -51,7 +51,7 @@ import java.util.regex.Pattern;
 
 public class ClientOptions {
 
-    private static final Logger logger = LoggerFactory.getLogger(ClientOptions.class);
+    private static final Logger logger = LoggerFactory.getLogger(ClientOptions.class.getSimpleName());
 
     private ServerStream.PublishType publishType;
     private String host = "localhost";

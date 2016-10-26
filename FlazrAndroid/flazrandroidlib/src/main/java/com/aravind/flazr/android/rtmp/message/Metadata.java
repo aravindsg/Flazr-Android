@@ -129,7 +129,8 @@ public abstract class Metadata extends AbstractMessage {
     }
 
     public static Metadata rtmpSampleAccess() {
-        return new MetadataAmf0("|RtmpSampleAccess", false, false);
+//        return new MetadataAmf0("|RtmpSampleAccess", false, false);
+        return onMetaDataTest(null);
     }
 
     public static Metadata dataStart() {
@@ -149,32 +150,22 @@ public abstract class Metadata extends AbstractMessage {
     */
 
     public static Metadata onMetaDataTest(MovieInfo movie) {
-        Amf0Object track1 = object(
-            pair("length", 3369366.0),
-            pair("timescale", 30000.0),
-            pair("language", "eng"),
-            pair("sampledescription", new Amf0Object[]{object(pair("sampletype", "avc1"))})
-        );
-        Amf0Object track2 = object(
-            pair("length", 2697216.0),
-            pair("timescale", 24000.0),
-            pair("language", "eng"),
-            pair("sampledescription", new Amf0Object[]{object(pair("sampletype", "mp4a"))})
-        );
         Map<String, Object> map = map(
-            pair("duration", movie.getDuration()),
-            pair("moovPosition", movie.getMoovPosition()),
-            pair("width", 640.0),
-            pair("height", 352.0),
-            pair("videocodecid", "avc1"),
-            pair("audiocodecid", "mp4a"),
-            pair("avcprofile", 100.0),
-            pair("avclevel", 30.0),
-            pair("aacaot", 2.0),
-            pair("videoframerate", 29.97002997002997),
-            pair("audiosamplerate", 24000.0),
-            pair("audiochannels", 2.0),
-            pair("trackinfo", new Amf0Object[]{track1, track2})
+                pair("duration", 0.0),
+                pair("fileSize", 0),
+                pair("width", 848.0),
+                pair("height", 480.0),
+                pair("videocodecid", "avc1"),
+                pair("videodatarate", 500.0),
+                pair("framerate", 30.0),
+                pair("audiocodecid", "mp4a"),
+                pair("audiodatarate", 64.0),
+                pair("audiosamplerate", 24000.0),
+                pair("audiosamplesize", 16.0),
+                pair("audiochannels", 1.0),
+                pair("stereo", false),
+                pair("encoder", "obs-output module (libobs version 0.14.2)"),
+            pair("trackinfo", new Amf0Object[]{null, null})
         );
         return new MetadataAmf0("onMetaData", map);
     }

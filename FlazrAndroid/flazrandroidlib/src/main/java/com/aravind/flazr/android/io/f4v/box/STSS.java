@@ -31,7 +31,7 @@ import java.util.List;
 
 public class STSS implements Payload {
 
-    private static final Logger logger = LoggerFactory.getLogger(STSS.class);
+    private static final Logger logger = LoggerFactory.getLogger(STSS.class.getSimpleName());
     private List<Integer> sampleNumbers;
     
     public STSS(ChannelBuffer in) {

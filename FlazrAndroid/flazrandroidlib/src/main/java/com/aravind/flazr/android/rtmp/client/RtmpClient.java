@@ -34,10 +34,9 @@ import java.util.concurrent.Executors;
 
 public class RtmpClient {
 
-    private static final Logger logger = LoggerFactory.getLogger(RtmpClient.class);
+    private static final Logger logger = LoggerFactory.getLogger(RtmpClient.class.getSimpleName());
 
     public static void main(String[] args) {
-        System.out.println();
         final ClientOptions options = new ClientOptions();
         if(!options.parseCli(args)) {
             return;

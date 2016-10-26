@@ -39,7 +39,7 @@ import java.util.Arrays;
 
 public class ServerHandshakeHandler extends FrameDecoder implements ChannelDownstreamHandler {
 
-    private static final Logger logger = LoggerFactory.getLogger(ServerHandshakeHandler.class);
+    private static final Logger logger = LoggerFactory.getLogger(ServerHandshakeHandler.class.getSimpleName());
     
     private boolean rtmpe;
     private final RtmpHandshake handshake;

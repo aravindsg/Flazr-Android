@@ -35,7 +35,7 @@ import org.slf4j.LoggerFactory;
 @ChannelPipelineCoverage("one")
 public class RtmpEncoder extends SimpleChannelDownstreamHandler {
 
-    private static final Logger logger = LoggerFactory.getLogger(RtmpEncoder.class);
+    private static final Logger logger = LoggerFactory.getLogger(RtmpEncoder.class.getSimpleName());
 
     private int chunkSize = 128;    
     private RtmpHeader[] channelPrevHeaders = new RtmpHeader[RtmpHeader.MAX_CHANNEL_ID];    
@@ -55,7 +55,7 @@ public class RtmpEncoder extends SimpleChannelDownstreamHandler {
         final RtmpHeader header = message.getHeader();
         if(header.isChunkSize()) {
             final ChunkSize csMessage = (ChunkSize) message;
-            logger.debug("encoder new chunk size: {}", csMessage);
+//            logger.debug("encoder new chunk size: {}", csMessage);
             chunkSize = csMessage.getChunkSize();
         } else if(header.isControl()) {
             final Control control = (Control) message;
@@ -87,7 +87,7 @@ public class RtmpEncoder extends SimpleChannelDownstreamHandler {
         }
         channelPrevHeaders[channelId] = header;        
         if(logger.isDebugEnabled()) {
-            logger.debug(">> {}", message);
+//            logger.debug(">> {}", message);
         }                
         final ChannelBuffer out = ChannelBuffers.buffer(
                 RtmpHeader.MAX_ENCODED_SIZE + header.getSize() + header.getSize() / chunkSize);

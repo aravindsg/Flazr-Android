@@ -26,7 +26,7 @@ import org.jboss.netty.buffer.ChannelBuffers;
 
 public class SetPeerBw extends AbstractMessage {
 
-    public static enum LimitType {
+    public enum LimitType {
         HARD, // 0
         SOFT, // 1
         DYNAMIC // 2

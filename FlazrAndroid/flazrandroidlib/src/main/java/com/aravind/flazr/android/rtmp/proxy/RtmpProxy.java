@@ -39,7 +39,7 @@ import java.util.concurrent.Executors;
 
 public class RtmpProxy {
 
-    private static final Logger logger = LoggerFactory.getLogger(RtmpProxy.class);
+    private static final Logger logger = LoggerFactory.getLogger(RtmpProxy.class.getSimpleName());
 
     static {
         RtmpConfig.configureProxy();

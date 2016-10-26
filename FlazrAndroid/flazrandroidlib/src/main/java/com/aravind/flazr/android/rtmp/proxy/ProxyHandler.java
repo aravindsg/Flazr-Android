@@ -40,7 +40,7 @@ import java.net.InetSocketAddress;
 @ChannelPipelineCoverage("one")
 public class ProxyHandler extends SimpleChannelUpstreamHandler {
 
-    private static final Logger logger = LoggerFactory.getLogger(ProxyHandler.class);
+    private static final Logger logger = LoggerFactory.getLogger(ProxyHandler.class.getSimpleName());
 
     private final ClientSocketChannelFactory cf;
     private final String remoteHost;

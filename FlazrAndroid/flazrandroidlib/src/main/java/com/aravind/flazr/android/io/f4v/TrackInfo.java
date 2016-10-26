@@ -42,7 +42,7 @@ import java.util.Set;
 
 public class TrackInfo {
 
-    private static final Logger logger = LoggerFactory.getLogger(TrackInfo.class);
+    private static final Logger logger = LoggerFactory.getLogger(TrackInfo.class.getSimpleName());
 
     private MovieInfo movie;
 

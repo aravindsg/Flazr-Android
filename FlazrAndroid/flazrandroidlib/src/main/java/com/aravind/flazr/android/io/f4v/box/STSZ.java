@@ -31,7 +31,7 @@ import java.util.List;
 
 public class STSZ implements Payload {
 
-    private static final Logger logger = LoggerFactory.getLogger(STSZ.class);
+    private static final Logger logger = LoggerFactory.getLogger(STSZ.class.getSimpleName());
     private List<Integer> sampleSizes;
     private int constantSize;
 

@@ -30,7 +30,7 @@ import java.net.Socket;
 
 public class StopMonitor extends Thread {
 
-    private static final Logger logger = LoggerFactory.getLogger(StopMonitor.class);
+    private static final Logger logger = LoggerFactory.getLogger(StopMonitor.class.getSimpleName());
     private ServerSocket socket;
 
     public StopMonitor(int port) {
@@ -58,5 +58,4 @@ public class StopMonitor extends Thread {
             throw new RuntimeException(e);
         }
     }
-    
 }

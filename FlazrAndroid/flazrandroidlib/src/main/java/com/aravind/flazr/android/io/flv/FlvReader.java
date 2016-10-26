@@ -35,7 +35,7 @@ import org.slf4j.LoggerFactory;
 
 public class FlvReader implements RtmpReader {
 
-    private static final Logger logger = LoggerFactory.getLogger(FlvReader.class);
+    private static final Logger logger = LoggerFactory.getLogger(FlvReader.class.getSimpleName());
     
     private final BufferReader in;
     private final long mediaStartPosition;
@@ -92,10 +92,7 @@ public class FlvReader implements RtmpReader {
 
     private static boolean isSyncFrame(final RtmpMessage message) {
         final byte firstByte = message.encode().getByte(0);
-        if((firstByte & 0xF0) == 0x10) {
-            return true;
-        }
-        return false;
+        return (firstByte & 0xF0) == 0x10;
     }
 
     @Override

@@ -30,19 +30,20 @@ import com.aravind.flazr.android.util.Utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.File;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class ServerApplication {
 
-    private static final Logger logger = LoggerFactory.getLogger(ServerApplication.class);
+    private static final Logger logger = LoggerFactory.getLogger(ServerApplication.class.getSimpleName());
 
     private final String name;
     private final Map<String, ServerStream> streams;
 
     public ServerApplication(final String rawName) {
-        this.name = cleanName(rawName);        
-        streams = new ConcurrentHashMap<String, ServerStream>();        
+        this.name = cleanName(rawName);
+        streams = new ConcurrentHashMap<String, ServerStream>();
     }
 
     public String getName() {
@@ -51,21 +52,26 @@ public class ServerApplication {
 
     public RtmpReader getReader(final String rawName) {
         final String streamName = Utils.trimSlashes(rawName);
-        final String path = RtmpConfig.SERVER_HOME_DIR + "/apps/" + name + "/";
+        final String dir = RtmpConfig.SERVER_HOME_DIR + "/apps/" + name;
+        File file = new File(dir);
+        if (!file.exists()) {
+            file.mkdirs();
+        }
+        final String path = dir + "/";
         final String readerPlayName;
         try {
-            if(streamName.startsWith("mp4:")) {
+            if (streamName.startsWith("mp4:")) {
                 readerPlayName = streamName.substring(4);
                 return new F4vReader(path + readerPlayName);
-            } else {                
-                if(streamName.lastIndexOf('.') < streamName.length() - 4) {
+            } else {
+                if (streamName.lastIndexOf('.') < streamName.length() - 4) {
                     readerPlayName = streamName + ".flv";
                 } else {
                     readerPlayName = streamName;
                 }
                 return new FlvReader(path + readerPlayName);
             }
-        } catch(Exception e) {
+        } catch (Exception e) {
             logger.info("reader creation failed: {}", e.getMessage());
             return null;
         }
@@ -73,28 +79,33 @@ public class ServerApplication {
 
     public RtmpWriter getWriter(final String rawName) {
         final String streamName = Utils.trimSlashes(rawName);
-        final String path = RtmpConfig.SERVER_HOME_DIR + "/apps/" + name + "/";
+        final String dir = RtmpConfig.SERVER_HOME_DIR + "/apps/" + name;
+        File file = new File(dir);
+        if (!file.exists()) {
+            file.mkdirs();
+        }
+        final String path = dir + "/";
         return new FlvWriter(path + streamName + ".flv");
     }
 
     public static ServerApplication get(final String rawName) {
         final String appName = cleanName(rawName);
         ServerApplication app = RtmpServer.APPLICATIONS.get(appName);
-        if(app == null) {
+        if (app == null) {
             app = new ServerApplication(appName);
             RtmpServer.APPLICATIONS.put(appName, app);
         }
         return app;
     }
 
-    public ServerStream getStream(final String rawName) {        
+    public ServerStream getStream(final String rawName) {
         return getStream(rawName, null);
     }
 
     public ServerStream getStream(final String rawName, final String type) {
         final String streamName = cleanName(rawName);
         ServerStream stream = streams.get(streamName);
-        if(stream == null) {
+        if (stream == null) {
             stream = new ServerStream(streamName, type);
             streams.put(streamName, stream);
         }

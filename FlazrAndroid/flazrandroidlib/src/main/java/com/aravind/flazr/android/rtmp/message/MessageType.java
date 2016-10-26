@@ -47,7 +47,7 @@ public enum MessageType implements ValueToEnum.IntValue {
 
     private final int value;
 
-    private MessageType(final int value) {
+    MessageType(final int value) {
         this.value = value;
     }
 
@@ -79,6 +79,9 @@ public enum MessageType implements ValueToEnum.IntValue {
     }
 
     public static RtmpMessage decode(final RtmpHeader header, final ChannelBuffer in) {
+        if(header.getMessageType() == null)
+            throw new RuntimeException("unable to create message for: " + header);
+
         switch(header.getMessageType()) {
             case ABORT: return new Abort(header, in);
             case BYTES_READ: return new BytesRead(header, in);
@@ -98,7 +101,14 @@ public enum MessageType implements ValueToEnum.IntValue {
     private static final ValueToEnum<MessageType> converter = new ValueToEnum<MessageType>(MessageType.values());
 
     public static MessageType valueToEnum(final int value) {
-        return converter.valueToEnum(value);
+        if(value > 0){
+            try {
+                return converter.valueToEnum(value);
+            } catch (RuntimeException e) {
+                return MessageType.SET_PEER_BW;
+            }
+        }
+        return MessageType.SET_PEER_BW;
     }
 
 }

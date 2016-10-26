@@ -33,7 +33,7 @@ import java.util.List;
 
 public class STSD implements Payload {
 
-    private static final Logger logger = LoggerFactory.getLogger(STSD.class);
+    private static final Logger logger = LoggerFactory.getLogger(STSD.class.getSimpleName());
 
     public static class STSDRecord {
         private SampleType type;

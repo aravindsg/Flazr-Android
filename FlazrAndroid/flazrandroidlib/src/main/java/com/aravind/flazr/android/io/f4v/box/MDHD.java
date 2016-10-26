@@ -29,7 +29,7 @@ import org.slf4j.LoggerFactory;
 
 public class MDHD implements Payload {
 
-    private static final Logger logger = LoggerFactory.getLogger(MDHD.class);
+    private static final Logger logger = LoggerFactory.getLogger(MDHD.class.getSimpleName());
 
     private byte version;
     private byte[] flags;
@@ -73,7 +73,7 @@ public class MDHD implements Payload {
             duration = in.readLong();
         }
         logger.debug("creationTime {} modificationTime {} timeScale {} duration {}",
-                new Object[]{creationTime, modificationTime, timeScale, duration});
+                creationTime, modificationTime, timeScale, duration);
         pad = in.readByte();
         language = in.readByte(); // TODO convert to ISO codes ?
         reserved = in.readShort();

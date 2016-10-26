@@ -47,7 +47,7 @@ import javax.crypto.spec.SecretKeySpec;
 
 public class RtmpHandshake {
 
-    private static final Logger logger = LoggerFactory.getLogger(RtmpHandshake.class);
+    private static final Logger logger = LoggerFactory.getLogger(RtmpHandshake.class.getSimpleName());
 
     public static final int HANDSHAKE_SIZE = 1536;
 

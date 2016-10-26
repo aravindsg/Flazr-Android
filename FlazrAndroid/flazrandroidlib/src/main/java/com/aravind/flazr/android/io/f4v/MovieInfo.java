@@ -34,7 +34,7 @@ import java.util.List;
 
 public class MovieInfo {
 
-    private static final Logger logger = LoggerFactory.getLogger(MovieInfo.class);
+    private static final Logger logger = LoggerFactory.getLogger(MovieInfo.class.getSimpleName());
 
     private long moovPosition;
     private FTYP ftyp;

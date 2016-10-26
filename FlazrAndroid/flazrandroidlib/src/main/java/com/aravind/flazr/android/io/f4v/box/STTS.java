@@ -31,7 +31,7 @@ import java.util.List;
 
 public class STTS implements Payload {
 
-    private static final Logger logger = LoggerFactory.getLogger(STTS.class);
+    private static final Logger logger = LoggerFactory.getLogger(STTS.class.getSimpleName());
 
     public static class STTSRecord {
 
@@ -73,7 +73,7 @@ public class STTS implements Payload {
             record.sampleCount = in.readInt();
             record.sampleDuration = in.readInt();
             logger.debug("#{} sampleCount: {} sampleDuration: {}",
-                    new Object[]{i, record.sampleCount, record.sampleDuration});
+                    i, record.sampleCount, record.sampleDuration);
             records.add(record);
         }
     }

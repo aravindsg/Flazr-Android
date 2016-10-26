@@ -27,7 +27,7 @@ import java.math.RoundingMode;
 
 public class Sample implements Comparable {
 
-    private static final Logger logger = LoggerFactory.getLogger(Sample.class);
+    private static final Logger logger = LoggerFactory.getLogger(Sample.class.getSimpleName());
 
     private Chunk chunk;
     private int size;
